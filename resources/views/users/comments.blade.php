@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-xs-10">
+        <div class="col-xs-12">
             <h2>ユーザー詳細</h2>
             <h3>username:{{ $user->name }}</h3>
             <ul class="nav nav-tabs nav-justfied">
@@ -10,10 +10,13 @@
                 <li role="presentation" class="{{ Request::is('users/*/comments') ? 'active' : '' }}"><a href="{{ route('users.comments', ['id' => $user->id]) }}">コメント <span class="badge">{{ $count_comments }}</span></a></li>
             </ul>
             @if (count($comments) > 0)
-                <ul>
+                <ul style="list-style: none;">
                     @foreach ($comments as $comment)
-                        <?php $article = App\Article::find($comment->article_id); ?>
-                        <li style="word-break: break-all">{!! link_to_route('articles.show', $article->title, ['id' => $comment->article_id]) !!}: {{ $comment->content }}</li>
+                        <div class="comment">
+                            <?php $article = App\Article::find($comment->article_id); ?>
+                            <h3 style="word-break: break-all">{{ $comment->content }}</h3>
+                            <h4 style="word-break: break-all">{!! link_to_route('articles.show', $article->title, ['id' => $comment->article_id]) !!}</h4>
+                        </div>
                     @endforeach
                 </ul>
             @endif

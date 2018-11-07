@@ -29,8 +29,8 @@
         {!! Form::open(['route' => 'comments.store']) !!}
                               <div class="form-group">
                                   {!! Form::hidden('article_id', $article->id) !!}
-                                  {!! Form::textarea('content', old('content'), ['class' => 'form-control', 'rows' => '2']) !!}
-                                  {!! Form::submit('コメントする', ['class' => 'btn btn-primary btn-block']) !!}
+                                  {!! Form::textarea('content', old('content'), ['class' => 'form-control', 'rows' => '5']) !!}
+                                  {!! Form::submit('コメントする(※最大400字)', ['class' => 'btn btn-primary btn-block']) !!}
                               </div>
         {!! Form::close() !!}
     

@@ -22,7 +22,7 @@ class ArticlesController extends Controller
     public function index()
     {
         if(\Auth::check()) {
-            $articles = Article::paginate(10);
+            $articles = Article::orderBy('created_at', 'desc')->paginate(10);
             
             return view('articles.index', [
                 'articles' => $articles
@@ -76,7 +76,7 @@ class ArticlesController extends Controller
     public function show($id)
     {
         $article = Article::find($id);
-        $comments = Comment::where('article_id',$id)->paginate(10);
+        $comments = Comment::where('article_id',$id)->orderBy('created_at', 'desc')->paginate(10);
         
         return view('articles.show', [
             'article' => $article,
