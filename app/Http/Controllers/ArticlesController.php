@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 
+use App\User;
+
 use App\Article;
+
+use App\Comment;
 
 class ArticlesController extends Controller
 {
@@ -18,7 +22,7 @@ class ArticlesController extends Controller
     public function index()
     {
         if(\Auth::check()) {
-            $articles = Article::all();
+            $articles = Article::paginate(10);
             
             return view('articles.index', [
                 'articles' => $articles
@@ -72,9 +76,11 @@ class ArticlesController extends Controller
     public function show($id)
     {
         $article = Article::find($id);
+        $comments = Comment::where('article_id',$id)->paginate(10);
         
         return view('articles.show', [
-            'article' => $article
+            'article' => $article,
+            'comments' => $comments
         ]);
     }
 

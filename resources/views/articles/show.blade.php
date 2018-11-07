@@ -2,9 +2,9 @@
 
 @section('content')
 
-    <h1>タイトル:{{ $article->title }}</h1>
-
-    <p>{{ $article->content }}</p>
+    <h1 style="word-break: break-all;">タイトル:{{ $article->title }}</h1>
+    
+    <p style="word-break: break-all;">{!! nl2br(e($article->content)) !!}</p>
     
     <?php $user = $article->user; ?>
     
@@ -17,5 +17,23 @@
             {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
         {!! Form::close() !!}
     @endif
+    
+    <h2>コメント</h2>
+    
+    <div>
+        
+        @if (count($comments) > 0)
+                @include('comments.comments', ['comments' => $comments])
+        @endif
+        
+        {!! Form::open(['route' => 'comments.store']) !!}
+                              <div class="form-group">
+                                  {!! Form::hidden('article_id', $article->id) !!}
+                                  {!! Form::textarea('content', old('content'), ['class' => 'form-control', 'rows' => '2']) !!}
+                                  {!! Form::submit('コメントする', ['class' => 'btn btn-primary btn-block']) !!}
+                              </div>
+        {!! Form::close() !!}
+    
+    </div>
 
 @endsection

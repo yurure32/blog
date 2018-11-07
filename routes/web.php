@@ -22,5 +22,10 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController', ['only' => ['show']]);
+    Route::group(['prefix' => 'users/{id}'], function () {
+       Route::get('comments', 'UsersController@comments')->name('users.comments'); 
+    });
+    
     Route::resource('articles', 'ArticlesController');
+    Route::resource('comments', 'CommentsController', ['only' => ['store', 'destroy']]);
 });
